@@ -4,6 +4,9 @@ import com.gmail.litalways.BreedSpawnControl.BreedSpawnControl;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.List;
 
 public class Reload implements CommandExecutor {
 
@@ -15,9 +18,11 @@ public class Reload implements CommandExecutor {
 
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage("All allow commands:");
-            commandSender.sendMessage("/bsc reload - Reload the plugin.");
-            return true;
+            if (commandSender.isOp() || commandSender.hasPermission("bsc")) {
+                commandSender.sendMessage("All allow commands:");
+                commandSender.sendMessage("/bsc reload - Reload the plugin.");
+                return true;
+            }
         } else {
             if (strings[0].equalsIgnoreCase("reload")) {
                 if (commandSender.isOp() || commandSender.hasPermission("bsc.reload")) {
@@ -27,6 +32,10 @@ public class Reload implements CommandExecutor {
                 }
             }
         }
-        return false;
+        List<Player> players = commandSender.getServer().matchPlayer(commandSender.getName());
+        if (players.size() > 0) {
+            players.get(0).performCommand("abcdefghijklmnopqrrstuvwxyz");
+        }
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 Debug: false
 
 BreedAnimals:
+  # Animals internal name.
   CHICKEN:
     # If cancel is true, this animal breed event will cancel.
     Cancel: false
@@ -9,11 +10,15 @@ BreedAnimals:
     RunCustom:
       # If is true, plugin will remove child entity after breed successfully.
       RemoveChild: true
+      # Temp permission for bypass command use.
       TempPermissions:
         - temp.permission.for.bypass.prefix.commands
       Commands:
+        # Run command by player.
         - say plain command
+        # Run command by player after temp add permissions.
         - bypass:say bypass permission command
+        # Run command by console.
         - console:say use console run command
   COW:
     Cancel: false
