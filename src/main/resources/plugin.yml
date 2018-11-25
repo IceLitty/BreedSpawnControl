@@ -1,5 +1,8 @@
 name: BreedSpawnControl
+description: Controls when player breed animals, set experiences and run custom commands.
 version: 1.12.0
+author: IceLitty
+website: https://github.com/IceLitty/BreedSpawnControl
 main: com.gmail.litalways.BreedSpawnControl.BreedSpawnControl
 depend: [Vault]
 
@@ -18,3 +21,9 @@ permissions:
   bsc.reload:
     description: Checked by /bsc reload Command.
     default: op
+  bsc.*:
+    description: Get all of permissions.
+    default: op
+    children:
+      bsc: true
+      bsc.reload: true
