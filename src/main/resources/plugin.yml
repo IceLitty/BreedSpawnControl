@@ -1,0 +1,20 @@
+name: BreedSpawnControl
+version: 1.12.0
+main: com.gmail.litalways.BreedSpawnControl.BreedSpawnControl
+depend: [Vault]
+
+commands:
+  bsc:
+    description: Main command.
+    usage: /bsc
+  bsc reload:
+    description: Reload the config.
+    usage: /bsc reload
+
+permissions:
+  bsc:
+    description: Show all command with /bsc.
+    default: op
+  bsc.reload:
+    description: Checked by /bsc reload Command.
+    default: op

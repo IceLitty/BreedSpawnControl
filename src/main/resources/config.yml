@@ -1,0 +1,108 @@
+Debug: false
+
+BreedAnimals:
+  CHICKEN:
+    # If cancel is true, this animal breed event will cancel.
+    Cancel: false
+    # If set to -1, will use vanilla experience give, otherwise set exp value to this.
+    Experience: 0
+    RunCustom:
+      # If is true, plugin will remove child entity after breed successfully.
+      RemoveChild: true
+      TempPermissions:
+        - temp.permission.for.bypass.prefix.commands
+      Commands:
+        - say plain command
+        - bypass:say bypass permission command
+        - console:say use console run command
+  COW:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  DONKEY:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  HORSE:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  LLAMA:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  MULE:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  MUSHROOM_COW:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  OCELOT:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  PIG:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  POLAR_BEAR:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  RABBIT:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  SHEEP:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  VILLAGER:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
+  WOLF:
+    Cancel: false
+    Experience: -1
+    RunCustom:
+      RemoveChild: false
+      TempPermissions: []
+      Commands: []
