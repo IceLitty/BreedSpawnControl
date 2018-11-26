@@ -1,113 +1,153 @@
 Debug: false
+WorldSpecialThemSelf: false
+
+# Worlds list, must be lowercase.
+EnableWorlds:
+  - world
+  - world_the_nether
+  - world_the_end
 
 BreedAnimals:
-  # Animals internal name.
-  CHICKEN:
-    # If cancel is true, this animal breed event will cancel.
-    Cancel: false
-    # If set to -1, will use vanilla experience give, otherwise set exp value to this.
-    Experience: 0
-    RunCustom:
-      # If is true, plugin will remove child entity after breed successfully.
-      RemoveChild: true
-      # Temp permission for bypass command use.
-      TempPermissions:
-        - temp.permission.for.bypass.prefix.commands
-      Commands:
-        # Run command by player.
-        - say plain command
-        # Run command by player after temp add permissions.
-        - bypass:say bypass permission command
-        # Run command by console.
-        - console:say use console run command
-  COW:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  DONKEY:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  HORSE:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  LLAMA:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  MULE:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  MUSHROOM_COW:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  OCELOT:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  PIG:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  POLAR_BEAR:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  RABBIT:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  SHEEP:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  VILLAGER:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
-  WOLF:
-    Cancel: false
-    Experience: -1
-    RunCustom:
-      RemoveChild: false
-      TempPermissions: []
-      Commands: []
+  # Check in ANY worlds when WorldSpecialThemSelf is false
+  "*":
+    # Animals internal name.
+    CHICKEN:
+      # If cancel is true, this animal breed event will cancel.
+      Cancel: false
+      # If set to -1, will use vanilla experience give, otherwise set exp value to this.
+      Experience: 0
+      RunCustom:
+        # If is true, plugin will remove child entity after breed successfully.
+        RemoveChild: true
+        # Temp permission for bypass command use.
+        TempPermissions:
+          - temp.permission.for.bypass.prefix.commands
+          - bukkit.command.say
+        Commands:
+          # Run command by player.
+          - say plain command
+          # Run command by player after temp add permissions.
+          - bypass:say bypass permission command
+          # Run command by console.
+          - console:say use console run command
+    COW:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands:
+          # Also can specify command run order.
+          - 0#console:say first
+          - 2#console:say third
+          # All acceptable variable:
+          # <world>       Event triggered world name.
+          # <father.x>    Father entity location axis x.
+          # <father.y>    Father entity location axis y.
+          # <father.z>    Father entity location axis z.
+          # <mother.x>    Mother entity location axis x.
+          # <mother.y>    Mother entity location axis y.
+          # <mother.z>    Mother entity location axis z.
+          # <breeder.x>   Breeder entity location axis x.
+          # <breeder.y>   Breeder entity location axis y.
+          # <breeder.z>   Breeder entity location axis z.
+          # <player>      If breeder is player, get player's name.
+          # <random1;random2;random3>   Random apply one of these strings.
+          - 3#console:say <world> <father.x>,<father.y>,<father.z> <mother.x>,<mother.y>,<mother.z> <breeder.x>,<breeder.y>,<breeder.z> => <player> <randomString1;randomString2;randomString3>
+    DONKEY:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    HORSE:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    LLAMA:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    MULE:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    MUSHROOM_COW:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    OCELOT:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    PIG:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    POLAR_BEAR:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    RABBIT:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    SHEEP:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    VILLAGER:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+    WOLF:
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands: []
+  # Always check in world name matches them self, must be lowercase!
+  world:
+    COW:
+      # All in world settings without in "*" world must set Use to true!
+      Use: true
+      Cancel: false
+      Experience: -1
+      RunCustom:
+        RemoveChild: false
+        TempPermissions: []
+        Commands:
+          # Also can specify command run order.
+          - 1#console:say second

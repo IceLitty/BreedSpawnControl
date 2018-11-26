@@ -15,15 +15,78 @@ commands:
     usage: /bsc reload
 
 permissions:
+  bsc.world.chicken:
+    description: Player trigger event breed chicken in world permission.
+    default: false
+  bsc.world.cow:
+    description: Player trigger event breed cow in world permission.
+    default: false
+  bsc.world.donkey:
+    description: Player trigger event breed donkey in world permission.
+    default: false
+  bsc.world.horse:
+    description: Player trigger event breed horse in world permission.
+    default: false
+  bsc.world.llama:
+    description: Player trigger event breed llama in world permission.
+    default: false
+  bsc.world.mule:
+    description: Player trigger event breed mule in world permission.
+    default: false
+  bsc.world.mushroom_cow:
+    description: Player trigger event breed mushroom_cow in world permission.
+    default: false
+  bsc.world.ocelot:
+    description: Player trigger event breed ocelot in world permission.
+    default: false
+  bsc.world.pig:
+    description: Player trigger event breed pig in world permission.
+    default: false
+  bsc.world.polar_bear:
+    description: Player trigger event breed polar_bear in world permission.
+    default: false
+  bsc.world.rabbit:
+    description: Player trigger event breed rabbit in world permission.
+    default: false
+  bsc.world.sheep:
+    description: Player trigger event breed sheep in world permission.
+    default: false
+  bsc.world.villager:
+    description: Player trigger event breed villager in world permission.
+    default: false
+  bsc.world.wolf:
+    description: Player trigger event breed wolf in world permission.
+    default: false
+  bsc.world:
+    description: When player in worlds name is "world" trigger event and don't have this permission, reject function.
+    default: false
+  bsc.world.*:
+    description: Get all breed animals trigger permission in "world".
+    default: false
+    children:
+      bsc.world.chicken: true
+      bsc.world.cow: true
+      bsc.world.donkey: true
+      bsc.world.horse: true
+      bsc.world.llama: true
+      bsc.world.mule: true
+      bsc.world.mushroom_cow: true
+      bsc.world.ocelot: true
+      bsc.world.pig: true
+      bsc.world.polar_bear: true
+      bsc.world.rabbit: true
+      bsc.world.sheep: true
+      bsc.world.villager: true
+      bsc.world.wolf: true
+  bsc.*:
+    description: Get all permissions in any world triggerd.
+    default: false
+  bsc.*.*:
+    description: Get all permissions in any world and any type animals triggerd.
+    default: false
   bsc:
     description: Show all command with /bsc.
     default: op
   bsc.reload:
     description: Checked by /bsc reload Command.
     default: op
-  bsc.*:
-    description: Get all of permissions.
-    default: op
-    children:
-      bsc: true
-      bsc.reload: true
