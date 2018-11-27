@@ -54,4 +54,4 @@ CHICKEN:
 Permission node format: `bsc.<worldName>.<entityName>`
 
 ##### All commands are default op.
-##### If you want to test default config, please remember add bsc.\* and bsc.\*.\* to self and de-op your self.
+##### If you want to test default config, please remember add `bsc.*` and `bsc.*.*` to self and de-op your self.
