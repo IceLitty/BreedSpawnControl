@@ -1,6 +1,6 @@
 name: BreedSpawnControl
 description: Controls when player breed animals, set experiences and run custom commands.
-version: 1.12.0
+version: 1.12.0-v1.0.2
 author: IceLitty
 website: https://github.com/IceLitty/BreedSpawnControl
 main: com.gmail.litalways.BreedSpawnControl.BreedSpawnControl

@@ -7,9 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreedEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -166,6 +164,7 @@ public class BreedListener implements Listener {
                                                 }
                                             }
                                         }
+                                        Map<String, List<String>> tmpPermissions = new HashMap<>();
                                         List<String> oldCommands = new ArrayList<>();
                                         List<String> newCommands = new ArrayList<>();
                                         for (String cmd : commands) {
@@ -176,7 +175,34 @@ public class BreedListener implements Listener {
                                                 while (newCommands.size() <= index) {
                                                     newCommands.add("");
                                                 }
-                                                newCommands.set(index, cmd.substring(startWithIndex));
+                                                String k = cmd.substring(startWithIndex);
+                                                newCommands.set(index, k);
+                                                if (k.startsWith("bypass:")) {
+                                                    if (!tmpPermissions.containsKey(k)) {
+                                                        tmpPermissions.put(k, new ArrayList<>());
+                                                    }
+                                                    List<String> permissions;
+                                                    if (worldSpecialThemSelf) {
+                                                        permissions = plugin.getConfig().getStringList("BreedAnimals." + world + "." + key + ".RunCustom.TempPermissions");
+                                                    } else {
+                                                        permissions = plugin.getConfig().getStringList("BreedAnimals." + world + "." + key + ".RunCustom.TempPermissions");
+                                                        if (!world.equalsIgnoreCase("*")) {
+                                                            List<String> perm2 = plugin.getConfig().getStringList("BreedAnimals.*." + key + ".RunCustom.TempPermissions");
+                                                            if (perm2.size() > 0) {
+                                                                permissions.addAll(perm2);
+                                                            }
+                                                        }
+                                                    }
+                                                    for (String perm : permissions) {
+                                                        String[] sp2 = perm.split("#");
+                                                        if (sp2.length > 1) {
+                                                            int index2 = Integer.parseInt(sp2[0]);
+                                                            if (index2 == index) {
+                                                                tmpPermissions.get(k).add(perm.substring(sp2[0].length() + 1));
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             } else {
                                                 oldCommands.add(cmd);
                                             }
@@ -201,6 +227,7 @@ public class BreedListener implements Listener {
                                         }
                                         for (String cmd : newCommands) {
                                             if (cmd != null && !cmd.isEmpty()) {
+                                                String originalCmd = cmd;
                                                 cmd = cmd.replace("<world>", event.getEntity().getWorld().getName());
                                                 if (event.getFather() != null) {
                                                     cmd = cmd.replace("<father.x>", String.valueOf(event.getFather().getLocation().getBlockX()));
@@ -235,33 +262,77 @@ public class BreedListener implements Listener {
                                                 }
                                                 if (cmd.startsWith("bypass:")) {
                                                     if (event.getBreeder() instanceof Player) {
-                                                        List<String> permissions;
-                                                        if (worldSpecialThemSelf) {
-                                                            permissions = plugin.getConfig().getStringList("BreedAnimals." + world + "." + key + ".RunCustom.TempPermissions");
-                                                        } else {
-                                                            permissions = plugin.getConfig().getStringList("BreedAnimals." + world + "." + key + ".RunCustom.TempPermissions");
-                                                            if (!world.equalsIgnoreCase("*")) {
-                                                                List<String> perm2 = plugin.getConfig().getStringList("BreedAnimals.*." + key + ".RunCustom.TempPermissions");
-                                                                if (perm2.size() > 0) {
-                                                                    permissions.addAll(perm2);
-                                                                }
-                                                            }
-                                                        }
+                                                        List<String> permissions = tmpPermissions.get(originalCmd);
                                                         Player player = (Player) event.getBreeder();
                                                         try {
                                                             String cmdStr = cmd.substring(7);
-                                                            if (debug) {
-                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] run bypass command: " + cmdStr);
+                                                            if (permissions != null) {
+                                                                if (permissions.size() > 0) {
+                                                                    for (String perm : permissions) {
+                                                                        if (perm.startsWith("!")) {
+                                                                            plugin.permission.playerRemove(player, perm.substring(1));
+                                                                            if (debug) {
+                                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] remove permission: " + perm.substring(1));
+                                                                            }
+                                                                        } else if (perm.startsWith("-")) {
+                                                                            plugin.permission.playerAdd(player, perm);
+                                                                            if (debug) {
+                                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] add negative permission: " + perm);
+                                                                            }
+                                                                        } else {
+                                                                            plugin.permission.playerAdd(player, perm);
+                                                                            if (debug) {
+                                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] add permission: " + perm);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                } else {
+                                                                    player.setOp(true);
+                                                                    if (debug) {
+                                                                        plugin.getLogger().warning("[ " + world + "." + key + " ] PLAYER GET TEMP OP: " + player.getName());
+                                                                    }
+                                                                }
                                                             }
-                                                            for (String perm : permissions) {
-                                                                plugin.permission.playerAdd(player, perm);
+                                                            if (cmdStr.startsWith("/")) {
+                                                                if (debug) {
+                                                                    plugin.getLogger().warning("[ " + world + "." + key + " ] run bypass command: " + cmdStr);
+                                                                }
+                                                                player.performCommand(cmdStr.substring(1));
+                                                            } else {
+                                                                if (debug) {
+                                                                    plugin.getLogger().warning("[ " + world + "." + key + " ] player bypass say: " + cmd);
+                                                                }
+                                                                player.chat(cmdStr);
                                                             }
-                                                            player.performCommand(cmdStr);
                                                         } catch (Exception e) {
                                                             e.printStackTrace();
                                                         } finally {
-                                                            for (String perm : permissions) {
-                                                                plugin.permission.playerRemove(player, perm);
+                                                            if (permissions != null) {
+                                                                if (permissions.size() > 0) {
+                                                                    for (String perm : permissions) {
+                                                                        if (perm.startsWith("!")) {
+                                                                            plugin.permission.playerAdd(player, perm.substring(1));
+                                                                            if (debug) {
+                                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] add permission: " + perm.substring(1));
+                                                                            }
+                                                                        } else if (perm.startsWith("-")) {
+                                                                            plugin.permission.playerRemove(player, perm);
+                                                                            if (debug) {
+                                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] remove negative permission: " + perm);
+                                                                            }
+                                                                        } else {
+                                                                            plugin.permission.playerRemove(player, perm);
+                                                                            if (debug) {
+                                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] remove permission: " + perm);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                } else {
+                                                                    player.setOp(false);
+                                                                    if (debug) {
+                                                                        plugin.getLogger().warning("[ " + world + "." + key + " ] REMOVE PLAYER TEMP OP: " + player.getName());
+                                                                    }
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -272,12 +343,19 @@ public class BreedListener implements Listener {
                                                     }
                                                     plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), cmdStr);
                                                 } else {
-                                                    if (debug) {
-                                                        plugin.getLogger().warning("[ " + world + "." + key + " ] run command: " + cmd);
-                                                    }
                                                     if (event.getBreeder() instanceof Player) {
                                                         Player player = (Player) event.getBreeder();
-                                                        player.performCommand(cmd);
+                                                        if (cmd.startsWith("/")) {
+                                                            if (debug) {
+                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] run command: " + cmd);
+                                                            }
+                                                            player.performCommand(cmd.substring(1));
+                                                        } else {
+                                                            if (debug) {
+                                                                plugin.getLogger().warning("[ " + world + "." + key + " ] player say: " + cmd);
+                                                            }
+                                                            player.chat(cmd);
+                                                        }
                                                     }
                                                 }
                                             }
