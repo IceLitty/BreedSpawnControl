@@ -11,6 +11,7 @@ script:
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
+  file: "$HOME/build/IceLitty/BreedSpawnControl/target/*.jar"
   skip_cleanup: true
   on:
     tags: true
