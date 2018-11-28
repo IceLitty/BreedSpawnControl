@@ -11,7 +11,8 @@ script:
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
-  file: "$HOME/build/IceLitty/BreedSpawnControl/target/*.jar"
+  file_glob: true
+  file: "$TRAVIS_BUILD_DIR/*.jar"
   skip_cleanup: true
   on:
     tags: true
