@@ -12,7 +12,7 @@ script:
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
-  file: "$HOME/build/IceLitty/BreedSpawnControl/target/BreedSpawnControl-1.12.2-v1.0.4.jar"
+  file: "$TRAVIS_BUILD_DIR/BreedSpawnControl-1.12.2-v1.0.4.jar"
   skip_cleanup: true
   on:
     tags: true
