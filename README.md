@@ -1,5 +1,7 @@
 # BreedSpawnControl
 
+[![Build Status](https://travis-ci.org/IceLitty/BreedSpawnControl.svg?branch=master)](https://travis-ci.org/IceLitty/BreedSpawnControl)
+
 You can use this plugin run command when player breed animals or small villager spawned.
 
 ### Default Sample Config Paragraph:
