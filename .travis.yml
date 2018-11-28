@@ -6,3 +6,9 @@ cache:
 install: true
 script:
   - mvn package -Drelease
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  skip_cleanup: true
+  on:
+    tags: true
