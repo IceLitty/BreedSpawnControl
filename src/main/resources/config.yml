@@ -44,6 +44,9 @@ BreedAnimals:
           - console:say use console run command
           - 2#console:manuaddp <player> test.permission
           - 4#console:manudelp <player> test.permission
+          - 6#15%console:say This command only have <chance> percents chance to run.
+          - 7#console:say And I can use <chance.int> or <chance.float2> or <chance.float4> random number in commands.
+          - 8#console:say Also can use <chance.each.int.5.7> <chance.each.int.8.15> <chance.each.float.5.7.2> <chance.each.float.8.15.4> in commands.
     COW:
       Cancel: false
       Experience: -1
