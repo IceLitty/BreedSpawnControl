@@ -1,3 +1,4 @@
+sudo: false
 language: java
 jdk: oraclejdk8
 cache:
@@ -11,8 +12,7 @@ script:
 deploy:
   provider: releases
   api_key: $GITHUB_TOKEN
-  file_glob: true
-  file: "$TRAVIS_BUILD_DIR/*.jar"
+  file: "$HOME/build/IceLitty/BreedSpawnControl/target/BreedSpawnControl-1.12.2-v1.0.4.jar"
   skip_cleanup: true
   on:
     tags: true
